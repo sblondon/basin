@@ -13,14 +13,13 @@ def encode(alphabet, n):
     base-N representation of `n`, where N is the length of `alphabet`.
     
     """
-    
     if not (isinstance(n, int) or isinstance(n, long)):
         raise TypeError('value to encode must be an int or long')
     r = []
     base  = len(alphabet)
     while n >= base:
         r.append(alphabet[n % base])
-        n = n / base
+        n = n // base
     r.append(str(alphabet[n % base]))
     r.reverse()
     return ''.join(r)
@@ -31,6 +30,10 @@ def decode(alphabet, string):
     Determine the integer value encoded by `string` with alphabet `alphabet`.
     
     """
+    try:
+        basestring
+    except NameError:
+        basestring = str
     if not isinstance(string, basestring):
         raise TypeError('value to decode must be a string')
     r = 0
